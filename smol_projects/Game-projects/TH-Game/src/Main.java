@@ -9,6 +9,15 @@ public class Main {
         window.setResizable(false);
         window.setTitle("2D Adventure");
 
+        GamePanel gamePanel = new GamePanel();
+
+        window.add(gamePanel);
+
+        window.pack();
+        // cause the windows to be sized to fit the preferred size and layouts
+
+
+
         window.setLocationRelativeTo(null);
         // Screen will be always at center
         window.setVisible(true);

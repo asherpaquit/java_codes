@@ -21,5 +21,7 @@ public class Main {
         window.setLocationRelativeTo(null);
         // Screen will be always at center
         window.setVisible(true);
+
+        gamePanel.startGameThread();
     }
 }

@@ -25,10 +25,33 @@ public class BingoGame implements Runnable{
             System.out.println(card);
            // System.out.println("");
         }
+//        do{
+//            int ctr;
+//            int randomToBingo = rd.nextInt(75);
+//            System.out.println(randomToBingo);
+//            result[75] = true;
+//
+//        }while(!bingo);
         do{
-            int randomToBingo = rd.nextInt(75);
-            System.out.println(randomToBingo);
+            int randomToBingo;
+            while(true){
+                randomToBingo = rd.nextInt(75);
 
-        }while(!bingo);
+                if(randomToBingo == randomToBingo){
+                    randomToBingo = rd.nextInt(75);
+
+               }
+
+                if(randomToBingo != 0)
+                    break;
+            }
+
+            System.out.print(randomToBingo + " ");
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }while(!bingo );
     }
 }

@@ -4,4 +4,6 @@ public abstract class BingoChecker implements Runnable{
     public BingoChecker(BingoCard card){
         this.card = card;
     }
+
+
 }

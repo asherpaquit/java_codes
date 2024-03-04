@@ -11,6 +11,13 @@ public class BingoRowChecker extends BingoChecker{
         for(int col  = 0; col < 5; col++){
            // int num = card.numbers.get(col*5+row);
             int num = card.card[row][col];
+            while(!BingoGame.result[num]){
+                try{
+                    BingoGame.result.wait(3000);
+                }catch(Exception e){
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 }

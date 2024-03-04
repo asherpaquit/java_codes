@@ -1,7 +1,8 @@
 import java.util.*;
 public class BingoGame implements Runnable{
     static Scanner sc = new Scanner(System.in);
-    boolean result[];
+    static Random rd = new Random();
+    static boolean result[];
     boolean bingo;
     List<BingoCard> cards;
 
@@ -16,6 +17,7 @@ public class BingoGame implements Runnable{
         for(int i = 0; i < temp; i++){
             BingoCard card = new BingoCard(i + 1);
             cards.add(card);
+
         }
 
         for(BingoCard card: cards){
@@ -23,5 +25,10 @@ public class BingoGame implements Runnable{
             System.out.println(card);
            // System.out.println("");
         }
+        do{
+            int randomToBingo = rd.nextInt(75);
+            System.out.println(randomToBingo);
+
+        }while(!bingo);
     }
 }

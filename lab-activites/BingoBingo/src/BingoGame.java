@@ -38,7 +38,6 @@ public class BingoGame implements Runnable{
                 randomToBingo = rd.nextInt(75);
 
                 if(randomToBingo == randomToBingo){
-                    randomToBingo = rd.nextInt(75);
 
                }
 

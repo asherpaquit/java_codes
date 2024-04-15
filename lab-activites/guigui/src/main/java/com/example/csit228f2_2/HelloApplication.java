@@ -24,41 +24,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HelloApplication extends Application {
-    public static List<User> users;
     public static void main(String[] args) {
         launch();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        users = new ArrayList<>();
-        // LOAD USERS
-        //users.add(new User("pax", "pax123"));
-
-        try(Connection c = MySQLConnection.getConnection();
-            Statement statement = c.createStatement()){
-
-            String selectQuery = "SELECT * FROM user";
-            ResultSet result = statement.executeQuery(selectQuery);
-
-            while(result.next()){
-                int id = result.getInt("id");
-                String name = result.getString("name");
-                String email = result.getString("email");
-                System.out.println("ID: " + id + "\nName: " + name + "\nemail: " + email);
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-
 
         AnchorPane pnMain = new AnchorPane();
         GridPane grid = new GridPane();
@@ -118,67 +94,37 @@ public class HelloApplication extends Application {
             }
         });
 
-        Button btnRegister = new Button("Register");
-        btnRegister.setFont(Font.font(45));
+        Button btnSignIn = new Button("Sign In");
+        btnSignIn.setFont(Font.font(45));
         HBox hbSignIn = new HBox();
-        hbSignIn.getChildren().add(btnRegister);
+        hbSignIn.getChildren().add(btnSignIn);
         hbSignIn.setAlignment(Pos.CENTER);
         grid.add(hbSignIn, 0, 3, 2, 1);
-//        final Text actionTarget = new Text("Hi");
-//        actionTarget.setFont(Font.font(30));
-//        grid.add(actionTarget, 1, 6);
-
-        Button btnLogIn = new Button("Login");
-        btnLogIn.setFont(Font.font(45));
-        HBox hbLogIn = new HBox();
-        hbLogIn.getChildren().add(btnLogIn);
-        hbLogIn.setAlignment(Pos.CENTER);
-        grid.add(hbLogIn, 0, 7, 2, 5);
         final Text actionTarget = new Text("Hi");
-        actionTarget.setFont(Font.font(20));
-        grid.add(actionTarget, 1, 18);
+        actionTarget.setFont(Font.font(30));
+        grid.add(actionTarget, 1, 6);
 
-        btnRegister.setOnAction(new EventHandler<ActionEvent>() {
+        btnSignIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 String username = tfUsername.getText();
                 String password = pfPassword.getText();
-//                for (User user : users) {
-//                    if (username.equals(user.username) && password.equals(user.password)) {
-//                        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-//                        try {
-//                            Scene scene = new Scene(loader.load());
-//                            stage.setScene(scene);
-//                            stage.show();
-//                        } catch (IOException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                    }
-//                }
 
-//                actionTarget.setText("Invalid username/password");
-//                actionTarget.setOpacity(1);
-            }
-        });
-
-        btnLogIn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                String username = tfUsername.getText();
-                String password = pfPassword.getText();
-                for (User user : users) {
-                    if (username.equals(user.username) && password.equals(user.password)) {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-                        try {
-                            Scene scene = new Scene(loader.load());
-                            stage.setScene(scene);
-                            stage.show();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                String status = Login.Login(username,password);
+                if(!status.equalsIgnoreCase("Login Failed")){
+                    tfUsername.setText("");
+                    pfPassword.setText("");
+                    HomePage.setUsername(username);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("main-page.fxml"));
+                    try {
+                        Scene scene = new Scene(loader.load());
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
-                actionTarget.setText("Invalid username/password");
+                actionTarget.setText(status);;
                 actionTarget.setOpacity(1);
             }
         });
@@ -192,9 +138,53 @@ public class HelloApplication extends Application {
         tfUsername.setOnKeyTyped(fieldChange);
         pfPassword.setOnKeyTyped(fieldChange);
 
+        Button btnRegister = new Button("Register");
+        btnRegister.setFont(Font.font(45));
+        HBox hbRegister = new HBox();
+        hbRegister.getChildren().add(btnRegister);
+        hbRegister.setAlignment(Pos.CENTER);
+        grid.add(hbRegister, 0, 4, 2, 1);
+
+        btnRegister.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("register.fxml"));
+                try {
+                    Scene scene = new Scene(loader.load());
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        Button btnForgot= new Button("Forgot Password");
+        btnForgot.setFont(Font.font(45));
+        HBox hbForgot = new HBox();
+        hbForgot.getChildren().add(btnForgot);
+        hbForgot.setAlignment(Pos.CENTER);
+        grid.add(hbForgot, 0, 5, 2, 1);
+
+        btnForgot.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ForgotPassword.fxml"));
+                try {
+                    Scene scene = new Scene(loader.load());
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         Scene scene = new Scene(pnMain, 700, 560);
         stage.setScene(scene);
+        ForgotPassword.getLogInScene(scene);
+        HomePage.setLogInScene(scene,stage);
+        Register.getLogInScene(scene);
         stage.show();
     }
 }

@@ -19,27 +19,27 @@ public class TileManager {
         this.gp = gp;
         tile = new Tile[10];
         mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
-        getTileImage();
+//        getTileImage();
         loadMap();
     }
 
-    public void getTileImage(){
-        try{
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
-
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
-
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
+//    public void getTileImage(){
+//        try{
+//            tile[0] = new Tile();
+//            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+//
+//            tile[1] = new Tile();
+//            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
+//
+//            tile[2] = new Tile();
+//            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+//    }
     public void loadMap(){
         try{
-            InputStream is = getClass().getResourceAsStream("/maps/map.txt");
+            InputStream is = getClass().getResourceAsStream("/maps/map.tmx");
             // inputs the txt file
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             // reads what is inputted on the InputStream

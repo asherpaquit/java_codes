@@ -104,17 +104,22 @@ public class MyGdxGame extends ApplicationAdapter {
 		int verticalForce = 0;
 
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			horizontalForce -= 1;
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-			horizontalForce += 1;
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-			horizontalForce += 1;
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+		verticalForce += 1;
 
 		}
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+		verticalForce -= 1;
+
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+			horizontalForce -= 1;
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+			horizontalForce += 1;
+		}
+
+		player.setLinearVelocity(horizontalForce * 5, player.getLinearVelocity().y);
+		player.setLinearVelocity(verticalForce * 5, player.getLinearVelocity().x);
 	}
 
 	public void cameraUpdate(float delta){

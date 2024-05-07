@@ -6,7 +6,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -18,17 +20,33 @@ import utils.Constants;
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	TextureRegion[] animationFrames;
+	Animation animation;
+	float elapsedTime;
+
 
 
 	private Box2DDebugRenderer b2dr;
 	private World world;
 	private Body player, platform;
 	private OrthographicCamera camera;
-	
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		img = new Texture("character.png");
+
+		TextureRegion[][] tmpFrames = TextureRegion.split(img,16,16);
+
+		animationFrames = new TextureRegion[28];
+		int index = 0;
+		for(int i = 0; i < 2; i++){
+			for(int j = 0; j < 2; j++){
+				animationFrames[index++] = tmpFrames[j][i];
+			}
+		}
+
+		animation = new Animation(1f/4f, animationFrames);
 
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
@@ -39,8 +57,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		world = new World(new Vector2(0, -9.8f), false);
 		b2dr = new Box2DDebugRenderer();
 
-		player = createBox(0, 10, 32, 32, false);
-		platform = createBox(0, 0, 64, 32, true);
+		player = createBox(0, 10, 20, 20, false);
+		platform = createBox(0, 0, 16, 16, true);
 	}
 
 	@Override
@@ -50,7 +68,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		update(Gdx.graphics.getDeltaTime());
+		elapsedTime += Gdx.graphics.getDeltaTime();
+//		update(Gdx.graphics.getDeltaTime());
 
 
 
@@ -58,11 +77,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		b2dr.render(world, camera.combined.scl(Constants.PPM));
-//		batch.begin();
-//		batch.draw(img, 0, 0);
-//		batch.end();
+		batch.begin();
+		batch.draw(animation.getKeyFrame(elapsedTime,true),0.2,0.2);
+		batch.end();
 	}
-	
+
 	@Override
 	public void dispose () {
 		world.dispose();

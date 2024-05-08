@@ -78,7 +78,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		b2dr.render(world, camera.combined.scl(Constants.PPM));
 		batch.begin();
-		batch.draw(animation.getKeyFrame(elapsedTime,true),0.2,0.2);
+		batch.draw((Texture) animation.getKeyFrame(elapsedTime,true),0.2,0.2);
 		batch.end();
 	}
 

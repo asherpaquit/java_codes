@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a7dd35ca-c974-428e-aae3-c49dbca7986e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Encapsulation/src/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/Encapsulation/src/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../smol_projects/Game-projects/TH-Game/out/production/TH-Game/Main/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../smol_projects/Game-projects/TH-Game/out/production/TH-Game/Main/GamePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../smol_projects/Game-projects/TH-Game/out/production/TH-Game/maps/map.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../smol_projects/Game-projects/TH-Game/out/production/TH-Game/maps/map.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../smol_projects/Game-projects/TH-Game/src/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../smol_projects/Game-projects/TH-Game/src/Main/GamePanel.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2csvJK6K57PboAxO0aGmup0OHLB" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/romeopaquit/Desktop/java_codes/just_java"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a7dd35ca-c974-428e-aae3-c49dbca7986e" name="Changes" comment="" />
+      <created>1708913028229</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708913028229</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

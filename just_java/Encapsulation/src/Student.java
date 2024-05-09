@@ -3,7 +3,7 @@ public class Student {
 	String name;
 	int age;
 	
-/*	public void setName(String newName) {
+	public void setName(String newName) {
 		name = newName;
 	}
 	
@@ -17,5 +17,5 @@ public class Student {
 	
 	public int getAge() {
 		return age;
-	}*/
+	}
 } 

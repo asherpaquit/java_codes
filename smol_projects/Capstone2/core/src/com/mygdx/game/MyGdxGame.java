@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
@@ -14,113 +15,85 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import static utils.Constants.PPM;
 
 public class MyGdxGame extends ApplicationAdapter {
+	private TextureAtlas atlas;
+	private final float SCALE = 2.5f;
 
 	private Box2DDebugRenderer b2dr;
 
 	private OrthographicCamera camera;
 
 	private World world;
-	private Body player;
+	private PlayerManager player;
 
+	private SpriteBatch batch;
+	private Texture tex;
 
-
-	SpriteBatch batch;
 	Texture img;
-	
+
 	@Override
-	public void create () {
+	public void create() {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, w / 2, h /2 );
+		camera.setToOrtho(false, w / SCALE, h / SCALE);
 
-		world = new World(new Vector2(0,-9.8f), false);
+		world = new World(new Vector2(0, 0), false);
 		b2dr = new Box2DDebugRenderer();
-
-		player = createPlayer(2, 10, 32, 32, false);
-		player = createPlayer(0, 0, 32, 32, true);
+		player = new PlayerManager(world);
+		player.run();
 
 		batch = new SpriteBatch();
+		tex = new Texture("tile000.png");
+
+		atlas = new TextureAtlas("Player.atlas");
 
 	}
 
 	@Override
-	public void render () {
+	public void render() {
 		update(Gdx.graphics.getDeltaTime());
 
-
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		batch.begin();
+		batch.begin(); // Starts the rendering of the image
+		batch.draw(tex, player.getPosition().x * PPM - (tex.getWidth() / 2),
+				player.getPosition().y * PPM - (tex.getHeight() / 2));
+		batch.end();
 
 		b2dr.render(world, camera.combined.scl(PPM));
 	}
-	
+
+	public TextureAtlas getAtlas() {
+		return atlas;
+	}
+
 	@Override
-	public void dispose () {
+	public void dispose() {
 		world.dispose();
 		batch.dispose();
 		b2dr.dispose();
 	}
 
-
-	public void update(float delta){
+	public void update(float delta) {
 		world.step(1 / 60f, 6, 2);
-		inputUpdate(delta);
+		player.inputUpdate(delta);
 		cameraUpdate(delta);
+		batch.setProjectionMatrix(camera.combined);
 	}
 
-	public void inputUpdate(float delta){
-		int horizontalForce = 0;
 
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			horizontalForce -= 1;
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-			horizontalForce += 1;
-		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-			player.applyForceToCenter(0, 300, false);
-		}
+	public void cameraUpdate(float delta) {
+		Vector2 position = player.getPosition();
 
-		player.setLinearVelocity(horizontalForce * 5, player.getLinearVelocity().y);
-	}
-
-	public void cameraUpdate(float delta){
-		Vector3 position = camera.position;
-
-		position.x = player.getPosition().x * PPM;
-		position.y = player.getPosition().y * PPM;
-		camera.position.set(position);
+		camera.position.set(position.x * PPM, position.y * PPM, 0);
 
 		camera.update();
 	}
 
-	public Body createPlayer(int x, int y, int width, int height, boolean isStatic){
-		Body pBody;
-		BodyDef def = new BodyDef();
-
-		if(isStatic){
-			def.type = BodyDef.BodyType.StaticBody;
-
-		}
-		else{
-			def.type = BodyDef.BodyType.DynamicBody;
-		}
-
-//		def.type = BodyDef.BodyType.DynamicBody;
-		def.position.set(x / PPM, y / PPM);
-		def.fixedRotation = true;
-		pBody = world.createBody(def);
 
 
-		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(32 / 2 / PPM, 32 / 2 / PPM);
-
-		pBody.createFixture(shape, 1.0f);
-		shape.dispose();
-
-
-		return pBody;
+	@Override
+	public void resize(int width, int height) {
+		camera.setToOrtho(false, width / SCALE, height / SCALE);
 	}
 }

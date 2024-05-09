@@ -6,8 +6,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
@@ -18,6 +20,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	private TextureAtlas atlas;
 	private final float SCALE = 2.5f;
 
+	private float elapsedTime = 0f;
 	private Box2DDebugRenderer b2dr;
 
 	private OrthographicCamera camera;
@@ -43,24 +46,49 @@ public class MyGdxGame extends ApplicationAdapter {
 		player = new PlayerManager(world);
 		player.run();
 
-		batch = new SpriteBatch();
-		tex = new Texture("tile000.png");
+		batch = player.getBatch();
 
-		atlas = new TextureAtlas("Player.atlas");
 
 	}
 
 	@Override
 	public void render() {
 		update(Gdx.graphics.getDeltaTime());
-
+		Gdx.gl.glClearColor(58 / 255f, 58 / 255f, 80 / 255f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin(); // Starts the rendering of the image
-		batch.draw(tex, player.getPosition().x * PPM - (tex.getWidth() / 2),
-				player.getPosition().y * PPM - (tex.getHeight() / 2));
+
+
+		elapsedTime += Gdx.graphics.getDeltaTime();
+
+		Animation<TextureRegion> currentAnimation = player.determineCurrentAnimation();
+		TextureRegion currentFrame = currentAnimation.getKeyFrame(elapsedTime, true); // 'true' for looping
+
+//		batch.draw(currentFrame, player.getPosition().x * PPM , player.getPosition().y * PPM);
+
+
+
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+
+		batch.draw(currentFrame, player.getPosition().x * PPM - ((float) currentFrame.getRegionWidth() / 2), player.getPosition().y * PPM - ((float) currentFrame.getRegionHeight() / 8));
+		// stove render
 		batch.end();
 
-		b2dr.render(world, camera.combined.scl(PPM));
+		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+			Gdx.app.exit();
+		}
+
+
+//		update(Gdx.graphics.getDeltaTime());
+//		Animation<TextureRegion> currentAnimation = player.determineCurrentAnimation();
+//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		batch.begin(); // Starts the rendering of the image
+//
+//
+////		batch.draw(tex, player.getPosition().x * PPM - (tex.getWidth() / 2),player.getPosition().y * PPM - (tex.getHeight() / 2));
+//		batch.end();
+//
+//		b2dr.render(world, camera.combined.scl(PPM));
 	}
 
 	public TextureAtlas getAtlas() {
@@ -79,6 +107,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player.inputUpdate(delta);
 		cameraUpdate(delta);
 		batch.setProjectionMatrix(camera.combined);
+
 	}
 
 

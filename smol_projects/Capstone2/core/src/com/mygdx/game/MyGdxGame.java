@@ -11,13 +11,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.ScreenUtils;
+
 import static utils.Constants.PPM;
 
 public class MyGdxGame extends ApplicationAdapter {
+
 	private TextureAtlas atlas;
+	public static final float UNIT_SCALE = 1 / 32f;
 	private final float SCALE = 2.5f;
 
 	private float elapsedTime = 0f;
@@ -47,7 +48,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		player.run();
 
 		batch = player.getBatch();
-
 
 	}
 
@@ -125,4 +125,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void resize(int width, int height) {
 		camera.setToOrtho(false, width / SCALE, height / SCALE);
 	}
+
+
 }

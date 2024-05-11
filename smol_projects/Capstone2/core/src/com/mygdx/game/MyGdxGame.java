@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
@@ -19,16 +20,17 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
-<<<<<<< Updated upstream
+
 import com.badlogic.gdx.utils.ScreenUtils;
-=======
+
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.mygdx.game.Screens.SplashScreen;
 
->>>>>>> Stashed changes
+
 import static utils.Constants.PPM;
 
-public class MyGdxGame extends ApplicationAdapter {
+public class MyGdxGame extends Game {
 	private TextureAtlas atlas;
 	private final float SCALE = 2.5f;
 
@@ -51,6 +53,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 
+		setScreen(new SplashScreen());
+
 		assetManager = new AssetManager();
 		initializeSkin();
 		camera = new OrthographicCamera();
@@ -67,7 +71,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 
 	private void initializeSkin() {
-		try {
+		//try {
 			//generate sa font
 			/*final ObjectMap<String, Object> resources = new ObjectMap<String, Object>();
 			final FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("ui/font.ttf"));
@@ -90,12 +94,12 @@ public class MyGdxGame extends ApplicationAdapter {
 			//assetManager.finishLoading();
 			//skin = assetManager.get("ui/hud.json", Skin.class);
 			//skin = new Skin(Gdx.files.internal("ui/hud.json"), assetManager.get("ui/hud.atlas", TextureAtlas.class));
-			skin = new Skin(Gdx.files.internal("ui/metal-ui.json"));
+	/*		skin = new Skin(Gdx.files.internal("ui/metal-ui.json"));
 
 		} catch (Exception e) {
 			Gdx.app.error("Skin Loading", "Error loading skin", e);
 			e.printStackTrace(); // Print stack trace for more detailed error information
-		}
+		}*/
 	}
 	@Override
 	public void render() {

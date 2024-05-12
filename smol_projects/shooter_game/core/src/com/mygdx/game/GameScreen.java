@@ -73,8 +73,8 @@ public class GameScreen implements Screen {
     /*    batch.draw(background, 0, -backgroundOffset, WORLD_WIDTH, WORLD_HEIGHT);
           non zoomed background
     */
-        batch.draw(background, mapX, mapY, mapWidth, mapHeight);
-//        batch.draw(background, mapX, -backgroundOffset+mapY, mapWidth, mapHeight);
+//        batch.draw(background, mapX, mapY, mapWidth, mapHeight);
+        batch.draw(background, mapX, -backgroundOffset+mapY, mapWidth, mapHeight);
 
         batch.end();
     }

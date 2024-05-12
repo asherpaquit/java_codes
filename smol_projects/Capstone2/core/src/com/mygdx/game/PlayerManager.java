@@ -47,7 +47,7 @@ public class PlayerManager implements Runnable{
         runningRight = true;
         lastDirection = "down";
 
-        textureAtlas = new TextureAtlas(Gdx.files.internal("assets/Player.atlas"));
+        textureAtlas = new TextureAtlas(Gdx.files.internal("Player.atlas"));
         player = createPlayer(2, 10, 32, 32, true);
         real_player = createPlayer(0, 0, 64, 64, false);
         playerBatch = new SpriteBatch();

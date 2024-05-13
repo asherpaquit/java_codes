@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="trees" tilewidth="32" tileheight="32" tilecount="432" columns="24">
- <image source="../../Tileset/Tiny Swords (Update 010)/Resources/Trees/Tree.png" width="768" height="576"/>
+ <image source="../tilesets/Tree.png" width="768" height="576"/>
  <tile id="2">
   <objectgroup draworder="index" id="2">
    <object id="1" x="15.25" y="8.75" width="33" height="37.75">

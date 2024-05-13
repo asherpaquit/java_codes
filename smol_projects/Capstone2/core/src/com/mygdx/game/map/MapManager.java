@@ -24,7 +24,7 @@ public class MapManager {
 
 
 
-        TiledObjectUtil.parseTiledObjectLayer(world, map.getLayers().get("collision_layer").getObjects());
+        TiledObjectUtil.parseTiledObjectLayer(world, map.getLayers().get("top_layer_2").getObjects());
 
         test_map_textures = new Texture[]{
                 new Texture("assets/map_textures/map_terrain.png"),

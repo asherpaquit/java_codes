@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
@@ -26,6 +27,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.mygdx.game.Screens.SplashScreen;
+import com.mygdx.game.map.MapManager;
 
 
 import static utils.Constants.PPM;
@@ -48,6 +50,8 @@ public class MyGdxGame extends Game {
 	Texture img;
 	private Skin skin;
 
+	private MapManager map;
+
 	@Override
 	public void create() {
 		float w = Gdx.graphics.getWidth();
@@ -67,7 +71,7 @@ public class MyGdxGame extends Game {
 
 		batch = player.getBatch();
 
-
+		map = new MapManager(world);
 	}
 
 	private void initializeSkin() {
@@ -119,7 +123,7 @@ public class MyGdxGame extends Game {
 
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-
+		map.drawLayerTextures(batch, currentFrame);
 		batch.draw(currentFrame, player.getPosition().x * PPM - ((float) currentFrame.getRegionWidth() / 2), player.getPosition().y * PPM - ((float) currentFrame.getRegionHeight() / 8));
 		// stove render
 		batch.end();
@@ -150,12 +154,14 @@ public class MyGdxGame extends Game {
 		world.dispose();
 		batch.dispose();
 		b2dr.dispose();
+		map.dispose();
 	}
 
 	public void update(float delta) {
 		world.step(1 / 60f, 6, 2);
 		player.inputUpdate(delta);
 		cameraUpdate(delta);
+		map.tmr.setView(camera);
 		batch.setProjectionMatrix(camera.combined);
 
 	}

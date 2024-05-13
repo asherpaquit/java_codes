@@ -34,7 +34,7 @@ public class PlayerManager implements Runnable{
 //    private Animation<TextureRegion> animation_walking;
     private Map<String, Animation<TextureRegion>> animations = new HashMap<>();
     private World world;
-    static Body player, real_player;
+    public static Body player, real_player;
     private TextureAtlas textureAtlas;
     private SpriteBatch playerBatch;
 
